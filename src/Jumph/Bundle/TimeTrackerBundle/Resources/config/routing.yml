@@ -1,0 +1,6 @@
+jumph_time_tracker:
+    resource: "@JumphTimeTrackerBundle/Resources/config/routing/timeTracker.yml"
+    prefix:   /
+jumph_time_category:
+    resource: "@JumphTimeTrackerBundle/Resources/config/routing/timeCategory.yml"
+    prefix:   /

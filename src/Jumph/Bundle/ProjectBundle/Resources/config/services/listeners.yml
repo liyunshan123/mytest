@@ -1,0 +1,6 @@
+services:
+    jumph_project.project_menu_listener:
+        class: Jumph\Bundle\ProjectBundle\EventListener\ProjectMenuListener
+        tags:
+          - { name: kernel.event_listener, event: jumph.build_menu, method: onMenuProject }
+          - { name: kernel.event_listener, event: jumph.build_config_menu, method: onConfigMenuProject }

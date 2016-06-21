@@ -1,0 +1,26 @@
+jumph_client_company_overview:
+    path:  /clients
+    defaults: { _controller: JumphClientBundle:Company:overview }
+    methods:  [GET]
+jumph_client_company_view:
+    path:  /clients/{companyId}/view
+    defaults: { _controller: JumphClientBundle:Company:view }
+    methods:  [GET]
+    requirements:
+            companyId:  \d+
+jumph_client_company_add:
+    path:  /clients/add
+    defaults: { _controller: JumphClientBundle:Company:add }
+    methods:  [GET, POST]
+jumph_client_company_edit:
+    path:  /clients/{companyId}/edit
+    defaults: { _controller: JumphClientBundle:Company:edit }
+    methods:  [GET, POST]
+    requirements:
+            companyId:  \d+
+jumph_client_company_delete:
+    path:  /clients/{companyId}/delete
+    defaults: { _controller: JumphClientBundle:Company:delete }
+    methods:  [DELETE]
+    requirements:
+            companyId:  \d+

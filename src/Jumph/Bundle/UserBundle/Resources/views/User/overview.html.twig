@@ -1,0 +1,89 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} | Users
+{% endblock %}
+
+{% block headerContent %}
+    <h1>
+        Users
+        <small>Overview</small>
+    </h1>
+
+    <ol class="breadcrumb">
+        <li><i class="fa fa-users"></i> Users</li>
+    </ol>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-primary">
+                <div class="box-header">
+                    <div class="col-sm-6 col-lg-2 search-form pull-right">
+                        {{ form_start(filterForm, { 'attr': { 'id': 'main-form'}}) }}
+                            <div class="input-group">
+                                {{ form_widget(filterForm.name, { 'attr': { 'class': 'input-sm' } }) }}
+                                <div class="input-group-btn">
+                                    <button type="submit" name="q" class="btn btn-sm btn-primary"><i class="fa fa-search"></i></button>
+                                </div>
+                            </div>
+                        {{ form_end(filterForm, {'render_rest': false}) }}
+                    </div>
+                </div>
+                <div class="box-body no-padding">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>{{ knp_pagination_sortable(users, 'First name', 'u.firstname') }}</th>
+                                <th>{{ knp_pagination_sortable(users, 'Last name', 'u.lastname') }}</th>
+                                <th>{{ knp_pagination_sortable(users, 'Username', 'u.username') }}</th>
+                                <th>Options</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if users is empty %}
+                                <tr>
+                                    <td colspan="6" class="text-center">No results</td>
+                                </tr>
+                            {% endif %}
+                            {% for user in users %}
+                                <tr>
+                                    <td><input type="checkbox" /></td>
+                                    <td>{{ user.firstname }}</td>
+                                    <td>{{ user.lastname }}</td>
+                                    <td>{{ user.username }}</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                                Options <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li><a href="{{ path('jumph_user_view', { 'userId': user.id }) }}">View</a></li>
+                                                <li><a href="{{ path('jumph_user_edit', { 'userId': user.id }) }}">Edit</a></li>
+                                                <li class="divider"></li>
+                                                <li><a href="{{ path('jumph_user_delete', { 'userId': user.id }) }}" class="delete js-delete-item">Delete</a></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="box-footer clearfix">
+                    <div class="col-xs-6">
+                        <div class="btn-group pagination">
+                            <a href="{{ path('jumph_user_add') }}" class="btn btn-primary"><i class="fa fa-lg fa-plus-circle"></i>  Add user</a>
+                            <!--<a href="" class="btn btn-default"><i class="fa fa-lg fa-trash-o"></i>  Delete selected</a>-->
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        {{ knp_pagination_render(users) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

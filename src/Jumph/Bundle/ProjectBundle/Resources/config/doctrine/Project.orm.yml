@@ -1,0 +1,61 @@
+Jumph\Bundle\ProjectBundle\Entity\Project:
+    type: entity
+    table: jumph_project
+
+    gedmo:
+        soft_deleteable:
+            field_name: deletedAt
+            time_aware: true
+
+    oneToMany:
+        timeTrackers:
+            targetEntity: \Jumph\Bundle\TimeTrackerBundle\Entity\TimeTracker
+            mappedBy: project
+
+    manyToOne:
+        status:
+          targetEntity: ProjectStatus
+          joinColumn:
+            name: project_status_id
+            referencedColumnName: id
+          cascade: ["persist"]
+        company:
+          targetEntity: \Jumph\Bundle\ClientBundle\Entity\Company
+          inversedBy: projects
+          joinColumn:
+            name: company_id
+            referencedColumnName: id
+          cascade: ["persist"]
+        employee:
+          targetEntity: \Jumph\Bundle\ClientBundle\Entity\Employee
+          inversedBy: projects
+          joinColumn:
+            name: employee_id
+            referencedColumnName: id
+          cascade: ["persist"]
+
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+
+    fields:
+        name:
+            type: string
+            length: 150
+        description:
+            type: text
+            nullable: true
+        createdAt:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: create
+        updatedAt:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: update
+        deletedAt:
+            type: datetime
+            nullable: true

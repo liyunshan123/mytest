@@ -1,0 +1,88 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} | Emails
+{% endblock %}
+
+{% block headerContent %}
+    <h1>
+        Emails
+        <small>Overview</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><i class="fa fa-envelope"></i> Emails</li>
+    </ol>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-primary">
+                <div class="box-header">
+                    <div class="col-sm-6 col-lg-2 search-form pull-right">
+                        {{ form_start(filterForm, { 'attr': { 'id': 'main-form'}}) }}
+                        <div class="input-group">
+                            {{ form_widget(filterForm.name, { 'attr': { 'class': 'input-sm' } }) }}
+                            <div class="input-group-btn">
+                                <button type="submit" name="q" class="btn btn-sm btn-primary"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                        {{ form_end(filterForm, {'render_rest': false}) }}
+                    </div>
+                </div>
+                <div class="box-body no-padding">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>{{ knp_pagination_sortable(emails, 'Subject', 'e.subject') }}</th>
+                                <th>{{ knp_pagination_sortable(emails, 'Employee', 'em.firstname') }}</th>
+                                <th>{{ knp_pagination_sortable(emails, 'Project', 'p.name') }}</th>
+                                <th>Options</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if emails is empty %}
+                                <tr>
+                                    <td colspan="6" class="text-center">No results</td>
+                                </tr>
+                            {% endif %}
+                            {% for email in emails  %}
+                                <tr>
+                                    <td><input type="checkbox" /></td>
+                                    <td>{{ email.subject }}</td>
+                                    <td>{{ email.employee is not null ? email.employee.name : "" }}</td>
+                                    <td>{{ email.project is not null ? email.project.name : "" }}</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                                Options <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li><a href="{{ path('jumph_email_view', { 'emailId': email.id }) }}">View</a></li>
+                                                <li><a href="{{ path('jumph_email_edit', { 'emailId': email.id }) }}">Edit</a></li>
+                                                <li class="divider"></li>
+                                                <li><a href="{{ path('jumph_email_delete', { 'emailId': email.id }) }}" class="delete js-delete-item">Delete</a></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="box-footer clearfix">
+                    <div class="col-xs-6">
+                        <div class="btn-group pagination">
+                            <a href="{{ path('jumph_email_add') }}" class="btn btn-primary"><i class="fa fa-lg fa-plus-circle"></i>  Add email</a>
+                            <!--<a href="" class="btn btn-default"><i class="fa fa-lg fa-trash-o"></i>  Delete selected</a>-->
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        {{ knp_pagination_render(emails) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

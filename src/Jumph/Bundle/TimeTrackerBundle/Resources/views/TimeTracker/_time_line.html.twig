@@ -1,0 +1,19 @@
+<tr>
+    <td>{{ timeTracker.project is not null ? timeTracker.project.name : ""  }}</td>
+    <td>{{ timeTracker.category is not null ? timeTracker.category.name : "" }}</td>
+    <td>{{ timeTracker.description }}</td>
+    <td>{{ timeTracker.dateAt|date("m/d/Y") }}</td>
+    <td>{{ timeTracker.hours }} h</td>
+    <td>
+        <div class="btn-group">
+            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                Options <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="">Edit</a></li>
+                <li class="divider"></li>
+                <li><a href="" class="delete js-delete-item">Delete</a></li>
+            </ul>
+        </div>
+    </td>
+</tr>

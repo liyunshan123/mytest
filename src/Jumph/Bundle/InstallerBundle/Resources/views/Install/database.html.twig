@@ -1,0 +1,43 @@
+{% extends '::base_install.html.twig' %}
+
+{% block title %}
+    {{ parent() }} | Installer
+{% endblock %}
+
+{% block headerContent %}
+    <h1>
+        Installer
+        <small>Database</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><i class="fa fa-wrench"></i> Installer</li>
+        <li>Database</li>
+    </ol>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-primary">
+                {{ form_start(databaseForm, { 'attr': { 'id': 'main-form'}}) }}
+                <div class="box-header">
+                    <!-- Potential title -->
+                </div>
+                <div class="box-body">
+                    {{ form_row(databaseForm.database_driver) }}
+                    {{ form_row(databaseForm.database_host) }}
+                    {{ form_row(databaseForm.database_port) }}
+                    {{ form_row(databaseForm.database_name) }}
+                    {{ form_row(databaseForm.database_user) }}
+                    {{ form_row(databaseForm.database_password) }}
+
+                    {{ form_widget(databaseForm._token) }}
+                </div>
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">{{ 'common.button.save'|trans }}</button>
+                </div>
+                {{ form_end(databaseForm, {'render_rest': false}) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

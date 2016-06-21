@@ -1,0 +1,6 @@
+services:
+    jumph_calendar.calendar_menu_listener:
+        class: Jumph\Bundle\CalendarBundle\EventListener\CalendarMenuListener
+        tags:
+          - { name: kernel.event_listener, event: jumph.build_menu, method: onMenuCalendar }
+

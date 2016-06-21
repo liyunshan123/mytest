@@ -1,0 +1,6 @@
+jumph_project:
+    resource: "@JumphProjectBundle/Resources/config/routing/project.yml"
+    prefix:   /
+jumph_project_status:
+    resource: "@JumphProjectBundle/Resources/config/routing/projectStatus.yml"
+    prefix:   /

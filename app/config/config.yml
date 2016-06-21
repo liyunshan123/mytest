@@ -1,0 +1,101 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+
+framework:
+    #esi:             ~
+    translator:      { fallback: "%locale%" }
+    secret:          "%secret%"
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    form:            ~
+    csrf_protection: ~
+    validation:      { enabled: true, enable_annotations: true }
+    templating:
+        engines: ['twig']
+        assets_version: "%assets_version%"
+    default_locale:  "%locale%"
+    trusted_proxies: ~
+    session:
+        name: JUMPHSESSID
+        handler_id: session.handler.native_file
+        save_path: "%kernel.root_dir%/sessions/"
+    fragments:       ~
+    http_method_override: true
+
+# Twig Configuration
+twig:
+    debug:            "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
+    form:
+        resources:
+            - '::form.html.twig'
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        driver:   "%database_driver%"
+        host:     "%database_host%"
+        port:     "%database_port%"
+        dbname:   "%database_name%"
+        user:     "%database_user%"
+        password: "%database_password%"
+        charset:  UTF8
+        # if using pdo_sqlite as your database driver, add the path in parameters.yml
+        # e.g. database_path: "%kernel.root_dir%/data/data.db3"
+        # path:     "%database_path%"
+
+    orm:
+        auto_generate_proxy_classes: "%kernel.debug%"
+        entity_managers:
+            default:
+                auto_mapping: true
+                filters:
+                    softdeleteable:
+                        class: Gedmo\SoftDeleteable\Filter\SoftDeleteableFilter
+                        enabled: true
+
+# Doctrine extensions
+stof_doctrine_extensions:
+    orm:
+        default:
+            tree: true
+            timestampable: true
+            blameable:      ~
+            sluggable:      ~
+            translatable:   ~
+            loggable:       ~
+            softdeleteable: ~
+            uploadable:     ~
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport: "%mailer_transport%"
+    host:      "%mailer_host%"
+    username:  "%mailer_user%"
+    password:  "%mailer_password%"
+    spool:     { type: memory }
+
+# Fos user
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: Jumph\Bundle\UserBundle\Entity\User
+    registration:
+            form:
+                type: jumph_user_registration
+    profile:
+            form:
+                type: jumph_user_profile
+
+# Knp menu
+knp_menu:
+    twig:
+        template: menu.html.twig
+
+# Knp paginator
+knp_paginator:
+    template:
+        pagination: pagination.html.twig
+        sortable: sortable.html.twig

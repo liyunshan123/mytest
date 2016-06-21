@@ -1,0 +1,4 @@
+jumph_dashboard_overview:
+    path:  /
+    defaults: { _controller: JumphDashboardBundle:Dashboard:overview }
+    methods:  [GET]

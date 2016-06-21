@@ -1,0 +1,54 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} | Employees
+{% endblock %}
+
+{% block headerContent %}
+    <h1>
+        Clients
+        <small>Add / Edit</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="{{ path('jumph_client_company_overview') }}"><i class="fa fa-building"></i> Clients</a></li>
+        <li><a href="{{ path('jumph_client_employee_overview', {'companyId' : company.id}) }}"> Employees</a></li>
+        <li>Add / Edit</li>
+    </ol>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-8 col-md-12">
+            <div class="box box-primary">
+                {{ form_start(employeeForm, { 'attr': { 'id': 'main-form'}}) }}
+                <div class="box-header">
+                    <!-- Potential title -->
+                </div>
+                <div class="box-body">
+                    {{ form_row(employeeForm.firstname) }}
+                    {{ form_row(employeeForm.lastname) }}
+                    {{ form_row(employeeForm.email) }}
+                    {{ form_widget(employeeForm._token) }}
+                </div>
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+                {{ form_end(employeeForm, {'render_rest': false}) }}
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-12">
+            <div class="box box-primary">
+                <div class="box-header">
+                    <!-- Potential title -->
+                </div>
+                <div class="box-body">
+                    <!-- To be defined -->
+                </div>
+                <div class="box-footer">
+                    <!-- Potential footer -->
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

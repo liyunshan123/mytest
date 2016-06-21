@@ -1,0 +1,6 @@
+jumph_company:
+    resource: "@JumphClientBundle/Resources/config/routing/company.yml"
+    prefix:   /
+jumph_employee:
+    resource: "@JumphClientBundle/Resources/config/routing/employee.yml"
+    prefix:   /

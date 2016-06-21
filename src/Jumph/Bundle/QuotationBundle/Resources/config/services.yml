@@ -1,0 +1,5 @@
+services:
+    jumph_quotation.quotation_menu_listener:
+                class: Jumph\Bundle\QuotationBundle\EventListener\QuotationMenuListener
+                tags:
+                  - { name: kernel.event_listener, event: jumph.build_menu, method: onMenuQuotation }

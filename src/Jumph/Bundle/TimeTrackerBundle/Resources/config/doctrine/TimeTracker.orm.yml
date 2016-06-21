@@ -1,0 +1,50 @@
+Jumph\Bundle\TimeTrackerBundle\Entity\TimeTracker:
+    type: entity
+    table: jumph_time_tracker
+
+    gedmo:
+        soft_deleteable:
+            field_name: deletedAt
+            time_aware: true
+
+    manyToOne:
+        category:
+          targetEntity: TimeCategory
+          joinColumn:
+            name: time_category_id
+            referencedColumnName: id
+          cascade: ["persist"]
+        project:
+          targetEntity: \Jumph\Bundle\ProjectBundle\Entity\Project
+          inversedBy: timeTrackers
+          joinColumn:
+            name: project_id
+            referencedColumnName: id
+          cascade: ["persist"]
+
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+
+    fields:
+        description:
+            type: text
+        dateAt:
+            type: date
+        hours:
+            type: decimal
+            scale: 1
+        createdAt:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: create
+        updatedAt:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: update
+        deletedAt:
+            type: datetime
+            nullable: true

@@ -1,0 +1,88 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}
+    {{ parent() }} | Employees
+{% endblock %}
+
+{% block headerContent %}
+    <h1>
+        Employees
+        <small>Overview</small>
+    </h1>
+
+    <ol class="breadcrumb">
+        <li><a href="{{ path('jumph_client_company_overview') }}"><i class="fa fa-building"></i> Clients</a></li>
+        <li> Employees</li>
+    </ol>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-primary">
+                <div class="box-header">
+                    <div class="col-sm-6 col-lg-2 search-form pull-right">
+                        {{ form_start(filterForm, { 'attr': { 'id': 'main-form'}}) }}
+                        <div class="input-group">
+                            {{ form_widget(filterForm.name, { 'attr': { 'class': 'input-sm' } }) }}
+                            <div class="input-group-btn">
+                                <button type="submit" name="q" class="btn btn-sm btn-primary"><i class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                        {{ form_end(filterForm, {'render_rest': false}) }}
+                    </div>
+                </div>
+                <div class="box-body no-padding">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>{{ knp_pagination_sortable(employees, 'First name', 'e.firstname') }}</th>
+                                <th>{{ knp_pagination_sortable(employees, 'Last name', 'e.lastname') }}</th>
+                                <th>Options</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if employees is empty %}
+                                <tr>
+                                    <td colspan="4" class="text-center">No results</td>
+                                </tr>
+                            {% endif %}
+                            {% for employee in employees  %}
+                                <tr>
+                                    <td><input type="checkbox" /></td>
+                                    <td>{{ employee.firstname }}</td>
+                                    <td>{{ employee.lastname }}</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                                Options <span class="caret"></span>
+                                            </button>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li><a href="{{ path('jumph_client_employee_view', {'companyId' : employee.company.id, 'employeeId' : employee.id}) }}">View</a></li>
+                                                <li><a href="{{ path('jumph_client_employee_edit', {'companyId' : employee.company.id, 'employeeId' : employee.id}) }}">Edit</a></li>
+                                                <li class="divider"></li>
+                                                <li><a href="{{ path('jumph_client_employee_delete', {'companyId' : employee.company.id, 'employeeId' : employee.id}) }}" class="delete js-delete-item">Delete</a></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="box-footer clearfix">
+                    <div class="col-xs-6">
+                        <div class="btn-group pagination">
+                            <a href="{{ path('jumph_client_employee_add', {'companyId' : company.id}) }}" class="btn btn-primary"><i class="fa fa-lg fa-plus-circle"></i>  Add employee</a>
+                            <!--<a href="" class="btn btn-default"><i class="fa fa-lg fa-trash-o"></i>  Delete selected</a>-->
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        {{ knp_pagination_render(employees) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

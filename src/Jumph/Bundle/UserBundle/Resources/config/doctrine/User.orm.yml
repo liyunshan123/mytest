@@ -1,0 +1,34 @@
+Jumph\Bundle\UserBundle\Entity\User:
+    type: entity
+    table: jumph_user
+
+    gedmo:
+        soft_deleteable:
+            field_name: deletedAt
+            time_aware: true
+
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+
+    fields:
+        firstname:
+            type: string
+            nullable: true
+        lastname:
+            type: string
+            nullable: true
+        createdAt:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: create
+        updatedAt:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: update
+        deletedAt:
+            type: datetime
+            nullable: true

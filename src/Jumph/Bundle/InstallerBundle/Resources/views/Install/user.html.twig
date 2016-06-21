@@ -1,0 +1,42 @@
+{% extends '::base_install.html.twig' %}
+
+{% block title %}
+    {{ parent() }} | Installer
+{% endblock %}
+
+{% block headerContent %}
+    <h1>
+        Installer
+        <small>User</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><i class="fa fa-wrench"></i> Installer</li>
+        <li>User</li>
+    </ol>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="box box-primary">
+                {{ form_start(adminUserForm, { 'attr': { 'id': 'main-form'}}) }}
+                <div class="box-header">
+                    <!-- Potential title -->
+                </div>
+                <div class="box-body">
+                    {{ form_row(adminUserForm.firstname) }}
+                    {{ form_row(adminUserForm.lastname) }}
+                    {{ form_row(adminUserForm.email) }}
+                    {{ form_row(adminUserForm.username) }}
+                    {{ form_row(adminUserForm.password) }}
+
+                    {{ form_widget(adminUserForm._token) }}
+                </div>
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">{{ 'common.button.save'|trans }}</button>
+                </div>
+                {{ form_end(adminUserForm, {'render_rest': false}) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

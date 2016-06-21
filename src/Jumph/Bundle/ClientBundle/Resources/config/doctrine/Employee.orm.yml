@@ -1,0 +1,51 @@
+Jumph\Bundle\ClientBundle\Entity\Employee:
+    type: entity
+    table: jumph_employee
+
+    gedmo:
+        soft_deleteable:
+            field_name: deletedAt
+            time_aware: true
+
+    manyToOne:
+      company:
+        targetEntity: Company
+        inversedBy: employees
+        joinColumn:
+          name: company_id
+          referencedColumnName: id
+    oneToMany:
+      projects:
+        targetEntity: \Jumph\Bundle\ProjectBundle\Entity\Project
+        mappedBy: employee
+
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+
+    fields:
+        email:
+            type: string
+            length: 150
+            nullable: true
+            unique: true
+        firstname:
+            type: string
+            nullable: true
+        lastname:
+            type: string
+            nullable: true
+        createdAt:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: create
+        updatedAt:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: update
+        deletedAt:
+            type: datetime
+            nullable: true

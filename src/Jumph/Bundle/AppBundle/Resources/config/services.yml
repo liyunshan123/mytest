@@ -1,0 +1,21 @@
+services:
+    jumph_app.alert_message:
+        class: Jumph\Bundle\AppBundle\Session\AlertMessage
+        arguments:
+            - @session
+    jumph_app.menu.voter.route_voter:
+        class: Jumph\Bundle\AppBundle\Menu\Voter\RouteVoter
+        calls:
+            - [setRequest, ["@?request="]]
+        tags:
+            - { name: knp_menu.voter }
+    gedmo.listener.softdeleteable:
+        class: Gedmo\SoftDeleteable\SoftDeleteableListener
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+        calls:
+            - [ setAnnotationReader, [ @annotation_reader ] ]
+    twig.extension.text:
+        class: Twig_Extensions_Extension_Text
+        tags:
+            - { name: twig.extension }

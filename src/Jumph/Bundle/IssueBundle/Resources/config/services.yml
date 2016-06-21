@@ -1,0 +1,5 @@
+services:
+    jumph_issue.issue_menu_listener:
+                class: Jumph\Bundle\IssueBundle\EventListener\IssueMenuListener
+                tags:
+                  - { name: kernel.event_listener, event: jumph.build_menu, method: onMenuIssue }
